@@ -41,25 +41,31 @@ function App() {
         {fetchBizs()}
         <div>
           {beerGardenData.map((business, idx) => {
+            return (
             <>
-              <div key={business.id}>
-                  <img src={business.image_url} alt={business.alias} />
+              <div key={idx}>
+                <img src={business.image_url} alt={business.alias} />
+              
+                <h1>{idx}</h1>
+                <h3>{business.name}</h3>
+                <p>{business.location.display_address}</p>
+                <p>Cross of {business.location.cross_streets}</p>
+                <p>{business.display_phone}</p>
+                <p>Yelp: {business.url}</p>
+                <p>Open: {business.hours.start} to {business.hours.end}</p>
+                <p>Happy Hour: {business.special_hours}</p>
+                <p>{business.transactions} available</p>
+                <p>{business.price}</p>
+                <p>{business.rating}</p>
+                <p>{business.review_count} reviews</p>
               </div>
-              <h1>{idx}</h1>
-              <h3>{business.name}</h3>
-              <p>{business.location.display_address}</p>
-              <p>Cross of {business.location.cross_streets}</p>
-              <p>{business.display_phone}</p>
-              <p>Yelp: {business.url}</p>
-              <p>Open: {business.hours.start} to {business.hours.end}</p>
-              <p>Happy Hour: {business.special_hours}</p>
-              <p>{business.transactions} available</p>
-              <p>{business.price}</p>
-              <p>{business.rating}</p>
-              <p>{business.review_count} reviews</p>
             </>
-            })
+            )
+          })
           }
+        </div>
+        <div>
+          <beerGardenData />
         </div>
       </main>
     </div>
