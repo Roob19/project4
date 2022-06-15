@@ -1,5 +1,5 @@
-{
-    "businesses": [
+
+export const beerBarData = [
         {
             "id": "fpa4gG1v03afLCxMGg5Ljw",
             "alias": "sacramento-pizza-company-folsom",
@@ -336,4 +336,3 @@
             "latitude": 38.57228190313613
         }
     }
-}

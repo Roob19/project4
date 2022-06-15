@@ -1,5 +1,5 @@
-{
-    "businesses": [
+
+export const beerGardenData = [
         {
             "id": "eLLTke9xBze6rCbv8sEvVA",
             "alias": "midtown-biergarten-sacramento",
@@ -486,13 +486,5 @@
             "phone": "",
             "display_phone": "",
             "distance": 24479.993165905897
-        }
-    ],
-    "total": 11,
-    "region": {
-        "center": {
-            "longitude": -121.20803833007812,
-            "latitude": 38.57228190313613
-        }
-    }
-}
+        },
+    ];

@@ -1,5 +1,5 @@
-{
-    "businesses": [
+
+export const beerToursData = [
         {
             "id": "-dANAEth6XwSxSOMNoJuqA",
             "alias": "sac-brew-bike-sacramento-3",
@@ -234,4 +234,3 @@
             "latitude": 38.57228190313613
         }
     }
-}

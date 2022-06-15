@@ -1,5 +1,5 @@
-{
-    "events": [
+
+export const eventsData = [
         {
             "attending_count": 200,
             "category": "food-and-drink",
@@ -104,4 +104,3 @@
         }
     ],
     "total": 3
-}
