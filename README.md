@@ -1,5 +1,7 @@
 project4
 
+This project is solely intended for educational purposes and is created under fair use.
+
 Special thanks and graditude to: 
 The City of Rancho Cordova
 General Assembly

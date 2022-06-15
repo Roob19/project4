@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 export const YELP_BASE_URL = 'https://api.yelp.com/v3/';
 export const YELP_BIZ_URL = 'https://api.yelp.com/v3/businesses/search';
@@ -9,10 +9,10 @@ export const YELP_TOKEN = process.env.YELP_TOKEN;
 
 // https://api.yelp.com/v3/businesses/search?location=95742&radius=39999&categories=beergardens
 
-export function getYelp(path, queryParams) {
-    const query = queryString.stringify(queryParams);
+export function getYelp( {location} ) {
+    // const query = queryString.stringify(queryParams);
     
-    return fetch (`${YELP_BASE_URL}${path}?${query}`, {
+    return fetch (`${YELP_BIZ_URL}?location=${location}&radius=39999&categories=beergardens`, {
         headers: {
             Authorization: `Bearer ${YELP_TOKEN}`, 
             Origin: 'localhost', 
