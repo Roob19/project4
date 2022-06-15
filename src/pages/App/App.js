@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import {useState} from "react";
+import React, { useState, useEffect } from 'react';
 import {Route, Switch, Redirect} from "react-router-dom";
-import { getUser } from '../../utilities/users-service';
-import { useBusinessSearch } from '../../utilities/yelp-api';
-import SearchForm from '../../components/Search/SearchForm';
-import { beerGardenData } from '../../utilities/beergardens-seed';
+import { getUser } from '../../utilities/services/users-service';
 
-import * as yelpAPI from '../../utilities/yelp-api';
+import SearchForm from '../../components/Search/SearchForm';
+import { beerGardenData } from '../../utilities/seeds/beergardens-seed';
+
+import * as yelpAPI from '../../utilities/services/yelp-api';
 
 import './App.css';
 
 function App() {
   const [bizs, setBizs] = useState([]);
+  console.log('bizs= ', bizs);
   const location = 95742;
   const radius = 39999;
   const categories = 'beergardens';
@@ -65,8 +65,12 @@ function App() {
           }
         </div>
         <div>
+          {beerGardenData}
+        </div>
+        <div>
           <beerGardenData />
         </div>
+
       </main>
     </div>
   );

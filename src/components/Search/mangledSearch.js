@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 // import useReactRouter from 'use-react-router';
-import { getYelp, useBusinessSearch } from '../../utilities/yelp-api';
+import { getYelp, useBusinessSearch } from '../../utilities/services/yelp-api';
 
 export default function Search() {
     const [location, setLocation] = useState({});
