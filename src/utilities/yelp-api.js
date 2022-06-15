@@ -11,8 +11,10 @@ export const YELP_TOKEN = process.env.YELP_TOKEN;
 
 export function getYelp( {location} ) {
     // const query = queryString.stringify(queryParams);
+    const radius = 39999;
+    const categories = 'beergardens';
     
-    return fetch (`${YELP_BIZ_URL}?location=${location}&radius=39999&categories=beergardens`, {
+    return fetch (`${YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}`, {
         headers: {
             Authorization: `Bearer ${YELP_TOKEN}`, 
             Origin: 'localhost', 
@@ -30,7 +32,7 @@ export function useBusinessSearch( location, radius, categories ) {
         setBusinesses([]);
         const fetchData = async () => {
             try {
-                const rawData = await getYelp('/businesses/search', searchParams);
+                const rawData = await getYelp(searchParams);
                 const resp = await rawData.json();
                 setBusinesses(resp.businesses);
                 setAmountResults(resp.total)

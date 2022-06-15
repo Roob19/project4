@@ -1,43 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import useReactRouter from 'use-react-router';
-import { getYelp, useBusinessSearch } from '../../utilities/yelp-api';
+import * as yelpAPI from '../../utilities/yelp-api';
 
-export function Search() {
-    const [location, setLocation] = useState({});
-    // const params = new URLSearchParams(location.search);
+export default function Search(req, res) {
+    const [bizs, setBizs] = useState([]);
+    const location = 95742;
     const radius = 39999;
     const categories = 'beergardens';
-    // const locationParam = params.get('find_loc');
-    const [error, setError] = useState('');
 
-    function handleChange(evt) {
-        setLocation({...location, [evt.target.name]: [evt.target.value]});
-        setError('');
-    }
+    const fetchYelp = async () => {
+        const res = await fetch(`${yelpAPI.YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}`, {
+            headers: {
+                Authorization: `Bearer ${yelpAPI.YELP_TOKEN}`, 
+                Origin: 'localhost', 
+                withCredentials: true,
+            }
+        });
+        const data = await res.json();
+        setBizs(data);
+    };
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        try {
-            const location = await getYelp(event.location);
-            setLocation(location);
-        } catch {
-            setError('Search.js failed');
-        }
-    }
+    useEffect(function () {
+        fetchYelp();
+    }, []);
 
     return (
         <div>
-            <div className="search-container" onSubmit={handleSubmit}>
-                <form>
-                    <label>Zip: </label>
-                        <input type="number" name="location" value={location} onChange={handleChange} min={5} required />
-                    <button type="submit">BEER!</button>
-                </form>
-            </div>
+            {bizs.map((business, idx) => {
+                <>
+                <div key={business.id}>
+                    <img src={business.image_url} alt={business.alias} />
+                </div>
+                <h3>{business.name}</h3>
+                <p>{business.location.display_address}</p>
+                <p>Cross of {business.location.cross_streets}</p>
+                <p>{business.display_phone}</p>
+                <p>Yelp: {business.url}</p>
+                <p>Open: {business.hours.start} to {business.hours.end}</p>
+                <p>Happy Hour: {business.special_hours}</p>
+                <p>{business.transactions} available</p>
+                <p>{business.price}</p>
+                <p>{business.rating}</p>
+                <p>{business.review_count} reviews</p>
+                </>
+                })
+            }
         </div>
     )
 }
-
-// https://api.yelp.com/v3/businesses/search?location=95742&radius=39999&categories=beergardens
-// https://api.yelp.com/v3/events?location=95742&radius=39999&categories=food-and-drink
