@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import axios from 'axios';
 import * as yelpAPI from '../../utilities/services/yelp-api';
 
-export default function AxiosBizs(req, res) {
+function AxiosBizs(req, res) {
     // const [bizs, setBizs] = useState([]);
     const location = 95742;
     const radius = 39999;
@@ -12,7 +13,7 @@ export default function AxiosBizs(req, res) {
   // https://api.yelp.com/v3/businesses/search?location=95742&radius=39999&categories=beergardens&sort_by=rating
     axios.get(`${yelpAPI.YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}&sort_by=rating`, {
         headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_YELP_TOKEN}`,
+            'Authorization': `Bearer ${process.env.REACT_APP_YELP_TOKEN}`,
         }, 
         mode: "no-cors",
     })
@@ -20,4 +21,8 @@ export default function AxiosBizs(req, res) {
     .catch(err => {
         res.status(500).json(err)
     })
+}
+
+export {
+    AxiosBizs,
 }

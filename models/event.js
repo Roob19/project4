@@ -36,22 +36,32 @@ const eventSchema = new Schema {
         is_canceled: {
             type: Boolean
         }, 
-        coordinates: {
-            latitude: {
-                type: Number, 
-                set: function(num){return +(Math.round(num+"e+7")+"e-7");}
-            }, 
-            longitude: {
-                type: Number, 
-                set: function(num){return +(Math.round(num+"e+7")+"e-7");}
-            }
+        is_free: {
+            type: Boolean
+        },
+        is_official: {
+            type: Boolean
+        },
+        latitude: {
+            type: Number, 
+            set: function(num){return +(Math.round(num+"e+7")+"e-7");}
         }, 
-        transactions: {
+        longitude: {
+            type: Number, 
+            set: function(num){return +(Math.round(num+"e+7")+"e-7");}
+        },
+        name: {
             type: String
-        }, 
-        price: {
+        },
+        tickets_url: {
             type: String
-        }, 
+        },
+        time_end: {
+            type: Date
+        },
+        time_start: {
+            type: Date
+        },
         location: {
             address1: {
                 type: String
@@ -76,17 +86,13 @@ const eventSchema = new Schema {
             }, 
             display_address: {
                 [String]
+            }, 
+            cross_streets: {
+                type: String
             }
         }, 
-        phone: {
+        business_id: {
             type: String
-        }, 
-        display_phone: {
-            type: String
-        }, 
-        distance: {
-            type: Number, 
-            set: function(num){return +(Math.round(num+"e+11")+"e-11");}
         }
     }
 }

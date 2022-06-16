@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { getUser } from "../../utilities/services/users-service";
+
 import axios from 'axios';
+
+import * as AxiosBizs from '../../components/Search/axiosSearch';
 
 import SearchForm from "../../components/Search/SearchForm";
 // import { beerGardenData } from '../../utilities/seeds/beergardens-seed';
@@ -13,17 +16,10 @@ import * as yelpAPI from "../../utilities/services/yelp-api";
 import "./App.css";
 
 
-function App() {
-  const [bizs, setBizs] = useState([]);
-  console.log("bizs before fetch= ", bizs);
-  const location = '95742';
-  const radius = 39999;
-  const categories = "beergardens"; // barcrawl beer_and_wine beerbar beergardens beertours
-  
-
+const App = () => {
   axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?location=nyc`, {
     headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+        'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`
     },
     params: {
         categories: 'breakfast_brunch',
@@ -69,13 +65,14 @@ function App() {
   // }, []);
 
   return (
+    <>
     <div className="App">
       <header className="App-header">
         Under Construction
-        {/* <AxiosBizs /> */}
       </header>
+      <AxiosBizs />
       <main className="App-main">
-        <div>
+        {/* <div>
           {bizs.map((business, idx) => {
             return (
               <>
@@ -89,7 +86,7 @@ function App() {
                   <p>{business.display_phone}</p>
                   <p>Yelp: {business.url}</p>
                   {/* <p>Open: {business.hours.start} to {business.hours.end}</p> */}
-                  <p>Happy Hour: {business.special_hours}</p>
+                  {/* <p>Happy Hour: {business.special_hours}</p>
                   <p>{business.transactions} available</p>
                   <p>{business.price}</p>
                   <p>{business.rating}</p>
@@ -97,12 +94,13 @@ function App() {
                 </div>
               </>
             );
-          })}
-        </div>
+          })} */}
+        {/* </div> */} */
         <div></div>
         <div></div>
       </main>
     </div>
+    </>
   );
 }
 
