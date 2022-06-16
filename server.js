@@ -2,15 +2,17 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
+const cors = require('cors');
 
 require("dotenv").config();
 require("./config/database");
 
 const app = express();
-const YELP_TOKEN = process.env.YELP_TOKEN;
 
 app.use(logger("dev"));
 app.use(express.json());
+
+app.use(cors());
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server

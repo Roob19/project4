@@ -3,7 +3,7 @@ import {Route, Switch, Redirect} from "react-router-dom";
 import { getUser } from '../../utilities/services/users-service';
 
 import SearchForm from '../../components/Search/SearchForm';
-import { beerGardenData } from '../../utilities/seeds/beergardens-seed';
+// import { beerGardenData } from '../../utilities/seeds/beergardens-seed';
 
 import * as yelpAPI from '../../utilities/services/yelp-api';
 
@@ -19,12 +19,16 @@ function App() {
   const fetchBizs = async () => {
     const res = await fetch(`${yelpAPI.YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}`, {
       headers: {
-          "Authorization": `Bearer ${yelpAPI.YELP_TOKEN}`
-      }
+          "Authorization": `Bearer ${process.env.REACT_APP_YELP_TOKEN}`,
+      }, 
+      mode: 'no-cors'
     });
+    console.log('res= ', res);
     const data = await res.json();
-    console.log('data=', data);
-    return data
+    console.log('data.businesses=', data.businesses);
+    setBizs(data);
+    console.log('data= ', data);
+    console.log('bizs= ', bizs);
   }
 
   useEffect(function() {
@@ -37,10 +41,8 @@ function App() {
         Under Construction
       </header>
       <main className="App-main">
-        <SearchForm />
-        {fetchBizs()}
         <div>
-          {beerGardenData.map((business, idx) => {
+          {bizs.map((business, idx) => {
             return (
             <>
               <div key={idx}>
@@ -52,7 +54,7 @@ function App() {
                 <p>Cross of {business.location.cross_streets}</p>
                 <p>{business.display_phone}</p>
                 <p>Yelp: {business.url}</p>
-                <p>Open: {business.hours.start} to {business.hours.end}</p>
+                {/* <p>Open: {business.hours.start} to {business.hours.end}</p> */}
                 <p>Happy Hour: {business.special_hours}</p>
                 <p>{business.transactions} available</p>
                 <p>{business.price}</p>
@@ -65,10 +67,8 @@ function App() {
           }
         </div>
         <div>
-          {beerGardenData}
         </div>
         <div>
-          <beerGardenData />
         </div>
 
       </main>

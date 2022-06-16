@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react';
-// import queryString from 'query-string';
 
 export const YELP_BASE_URL = 'https://api.yelp.com/v3/';
 export const YELP_BIZ_URL = 'https://api.yelp.com/v3/businesses/search';
 export const YELP_EVT_URL = 'https://api.yelp.com/v3/events';
 
-export const YELP_TOKEN = process.env.YELP_TOKEN;
+export const YELP_TOKEN = process.env.REACT_APP_YELP_TOKEN;
 
 
 export async function getYelp( query ) {
-    const location = query;
-    const radius = 39999;
-    const categories = 'beergardens';
-    
     try {
-        const res = await fetch (`${YELP_BASE_URL}?location=${location}&radius=${radius}&categories=${categories}`, {
+        const res = await fetch (`${YELP_BASE_URL}?${query}`, {
             headers: {
                 Authorization: `Bearer ${YELP_TOKEN}`, 
             }
@@ -29,9 +24,9 @@ export async function getYelp( query ) {
 
 // https://api.yelp.com/v3/businesses/search?location=95742&radius=39999&categories=beergardens
 export async function getBiz( query ) {
-    const location = query;
+    const location = query.location;
     const radius = 39999;
-    const categories = 'beergardens';
+    const categories = 'beergardens'; // barcrawl beer_and_wine beerbar beergardens beertours
     
     try {
         const res = await fetch (`${YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}`, {
@@ -49,7 +44,7 @@ export async function getBiz( query ) {
 
 // https://api.yelp.com/v3/events?location=95742&radius=39999&categories=food-and-drink
 export async function getEvt( query ) {
-    const location = query;
+    const location = query.location;
     const radius = 39999;
     const categories = 'food-and-drink';
     
@@ -67,7 +62,7 @@ export async function getEvt( query ) {
     }
 }
 
-export function useBusinessSearch( location, radius, categories ) {
+export function BusinessSearch( location, radius, categories ) {
     const [businesses, setBusinesses] = useState([]);
     const [amountResults, setAmountResults] = useState();
     const [searchParams, setSearchParams] = useState({location, radius, categories});
