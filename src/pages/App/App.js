@@ -1,58 +1,78 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { getUser } from "../../utilities/services/users-service";
+import axios from 'axios';
 
 import SearchForm from "../../components/Search/SearchForm";
 // import { beerGardenData } from '../../utilities/seeds/beergardens-seed';
 
 import * as yelpAPI from "../../utilities/services/yelp-api";
 
-import AxiosBizs from '../../components/Search/axiosSearch';
 
 
 import "./App.css";
 
+
 function App() {
   const [bizs, setBizs] = useState([]);
   console.log("bizs before fetch= ", bizs);
-  const location = 95742;
+  const location = '95742';
   const radius = 39999;
   const categories = "beergardens"; // barcrawl beer_and_wine beerbar beergardens beertours
+  
 
-  // https://api.yelp.com/v3/businesses/search?location=95742&radius=39999&categories=beergardens&sort_by=rating
-  const fetchBizs = async () => {
-    // console.log('Bearer token= ', process.env.REACT_APP_YELP_TOKEN)
-    const res = await fetch(
-      `${yelpAPI.YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}&sort_by=rating`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_YELP_TOKEN}`,
-        },
-        mode: "no-cors",
-      }
-    );
-    // console.log(fetchBizs());
-    console.log("res= ", res);
+  axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?location=nyc`, {
+    headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+    },
+    params: {
+        categories: 'breakfast_brunch',
+    }
+})
+    .then((res) => {
+        console.log(res.data)
+    })
+    .catch((err) => {
+        console.log ('error')
+    })
 
-    const data = await res.json();
+  // const fetchBizs = async (
+  //   url = `${yelpAPI.YELP_BIZ_URL}?location=${location}&radius=${radius}&categories=${categories}&sort_by=rating`, 
+  //   data = {}
+  //   ) => {
+  //   const res = await fetch(
+  //     url, {
+  //       method: 'GET',
+  //       mode: "no-cors",
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.REACT_APP_YELP_TOKEN}`,
+  //       }, 
+  //     body: JSON.stringify(data)
+  //     });
 
-    console.log("data.businesses=", data.businesses);
+  //   // console.log(fetchBizs());
+  //   console.log("res= ", res);
+
+  //   // const data = await res.json();
+
+  //   console.log("data.businesses=", data.businesses);
     
-    setBizs(data);
+  //   setBizs(data);
     
-    console.log("data= ", data);
-    console.log("bizs after fetch= ", bizs);
-  };
+  //   console.log("data= ", data);
+  //   console.log("bizs after fetch= ", bizs);
+  //   console.log(fetchBizs.json())
+  // };
 
-  useEffect(function () {
-    fetchBizs();
-  }, []);
+  // useEffect(function () {
+  //   fetchBizs();
+  // }, []);
 
   return (
     <div className="App">
       <header className="App-header">
         Under Construction
-        <AxiosBizs />
+        {/* <AxiosBizs /> */}
       </header>
       <main className="App-main">
         <div>

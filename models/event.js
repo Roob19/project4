@@ -2,34 +2,39 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema
 
-const businessSchema = new Schema {
+const eventSchema = new Schema {
     {
+        attending_count: {
+            type: Number 
+        }, 
+        category: {
+            type: String, 
+        }, 
+        cost: {
+            type: Number, 
+            set: function(num){return +(Math.round(num+"e+2")+"e-2");}
+        }, 
+        cost_max: {
+            type: Number, 
+            set: function(num){return +(Math.round(num+"e+2")+"e-2");}
+        }, 
+        description: {
+            type: String
+        }, 
+        event_site_url: {
+            type: String
+        }, 
         id: {
-            type: String, 
-            required: true
-        }, 
-        name: {
-            type: String, 
-            required: true
-        }, 
-        alias: {
             type: String
         }, 
         image_url: {
             type: String
         }, 
-        is_closed: {
-            type: Boolean
-        }, 
-        url: {
-            type: String
-        }, 
-        review_count: {
+        interested_count: {
             type: Number
-        }, 
-        rating: {
-            type: Number, 
-            set: function(num){return Math.round(num*10)/10;}
+        },
+        is_canceled: {
+            type: Boolean
         }, 
         coordinates: {
             latitude: {
@@ -86,8 +91,8 @@ const businessSchema = new Schema {
     }
 }
 
-const BusinessModel = mongoose.model('BusinessModel', businessSchema);
+const EventModel = mongoose.model('EventModel', eventSchema);
 
 export {
-    BusinessModel
+    EventModel
 }
